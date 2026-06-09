@@ -3,7 +3,7 @@
 #include <ESP8266HTTPClient.h>
 #include <ArduinoJson.h>
 
-#define API_URL "https://gitlab.wpj.cz/api/v4/projects/1/pipelines?ref=master&per_page=1"
+#define API_URL "https://gitlab.wpj.cz/api/v4/projects/1/pipelines/latest"
 #define REQUEST_DELAY 5000
 #define REQUEST_TIMEOUT 20000
 #define RED_LED 14
@@ -80,8 +80,7 @@ void processPayload(HTTPClient &http) {
     return;
   }
 
-  JsonObject object = document[0];
-  const char* status = object["status"];
+  const char* status = document["status"];
   
   if (strcmp(status, "success") == 0) {
     digitalWrite(GREEN_LED, HIGH);
@@ -95,4 +94,5 @@ void processPayload(HTTPClient &http) {
 
   Serial.print("Gitlab pipeline response: ");
   serializeJson(document, Serial);
+  Serial.println();
 }
