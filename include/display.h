@@ -5,16 +5,15 @@
 
 void display(TFT_eSPI tft, const char* title, const char* subtitle) {
   tft.fillScreen(TFT_BLACK);
+  tft.loadFont("Charis_SILR");
 
   // Main title
   tft.setTextColor(TFT_CYAN, TFT_BLACK);
-  tft.setTextSize(3);
   tft.setTextDatum(MC_DATUM);
   tft.drawString(title, 120, 110);
 
   // Sub title
   tft.setTextColor(TFT_YELLOW, TFT_BLACK);
-  tft.setTextSize(2);
   tft.drawString(subtitle, 120, 155);
 
   // Middle line
@@ -22,6 +21,7 @@ void display(TFT_eSPI tft, const char* title, const char* subtitle) {
 
   // Footer text
   tft.setTextColor(TFT_DARKGREY, TFT_BLACK);
-  tft.setTextSize(1);
   tft.drawString("WPJ", 120, 240);
+
+  tft.unloadFont();
 }

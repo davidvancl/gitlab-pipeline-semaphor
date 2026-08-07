@@ -12,6 +12,24 @@ long lastUpdate = 0;
 
 void setup() {
   Serial.begin(115200);
+  
+  // Font loader
+  if (!SPIFFS.begin()) {
+    Serial.println("SPIFFS initialisation failed!");
+    while (1) yield(); // Stay here twiddling thumbs waiting
+  }
+  Serial.println("\r\nSPIFFS available!");
+
+  // Check font availability
+  bool font_missing = false;
+  if (SPIFFS.exists("/Charis_SILR.vlw")    == false) font_missing = true;
+
+  if (font_missing)
+  {
+    Serial.println("\r\nFont missing in SPIFFS, did you upload it?");
+    while(1) yield();
+  }
+  else Serial.println("\r\nFonts found OK.");
 
   // Init required pins
   pinMode(RED_RELAY_GPIO, OUTPUT);
