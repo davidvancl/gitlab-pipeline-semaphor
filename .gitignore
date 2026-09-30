@@ -5,4 +5,4 @@
 .vscode/ipch
 
 node_modules/
-include/arduino_secrets.h
+include/secrets.h

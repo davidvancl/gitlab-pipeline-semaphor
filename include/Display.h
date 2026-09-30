@@ -1,27 +1,8 @@
 #pragma once
 
-#include <TFT_eSPI.h>
-#include <SPI.h>
+namespace Display {
 
-void display(TFT_eSPI tft, const char* title, const char* subtitle) {
-  tft.fillScreen(TFT_BLACK);
-  tft.loadFont("Charis_SILR");
+void begin();
+void show(const char* title, const char* subtitle);
 
-  // Main title
-  tft.setTextColor(TFT_CYAN, TFT_BLACK);
-  tft.setTextDatum(MC_DATUM);
-  tft.drawString(title, 120, 110);
-
-  // Sub title
-  tft.setTextColor(TFT_YELLOW, TFT_BLACK);
-  tft.drawString(subtitle, 120, 155);
-
-  // Middle line
-  tft.drawFastHLine(30, 135, 180, TFT_DARKGREY);
-
-  // Footer text
-  tft.setTextColor(TFT_DARKGREY, TFT_BLACK);
-  tft.drawString("WPJ", 120, 240);
-
-  tft.unloadFont();
 }
