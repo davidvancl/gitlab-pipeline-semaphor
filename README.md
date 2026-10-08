@@ -78,7 +78,7 @@ Copy [include/secrets.example.h](include/secrets.example.h) to `include/secrets.
 #define SECRET_GITLAB_TOKEN "gitlab-personal-access-token"
 ```
 
-The GitLab token needs the `read_api` scope and access to the project in `API_URL`. A project access token with the Reporter role works as well. It is stored in a 96-byte buffer, so longer tokens are cut off.
+The GitLab token needs the `read_api` scope and access to the project in `API_URL`. A project access token with the Reporter role works as well.
 
 On the first upload over USB the WiFi credentials and the GitLab token are saved to EEPROM. Firmware built by GitHub Actions has no `secrets.h` and uses the saved values. To change them, edit `secrets.h` and upload the firmware over USB again.
 
@@ -95,11 +95,10 @@ On startup the yellow light turns on and the display shows "WELCOME" while the d
 
 ## Source layout
 
-- `src/main.cpp` – `setup()` and `loop()` only
+- `src/main.cpp` – `setup()`, `loop()` and moving the token saved by older firmware to the new EEPROM layout
 - `src/Pipeline.cpp` – fetches and parses the pipeline status, drives the light and display
 - `src/Semaphore.cpp` – relay control
 - `src/Display.cpp` – TFT output and the SPIFFS font
-- `src/TokenStore.cpp` – persists the GitLab token in EEPROM
 - `include/config.h` – API URL, timing and pins
 - `include/WifiCredentials.h` – uses `secrets.h` if it exists
 - `data/` – font uploaded to SPIFFS

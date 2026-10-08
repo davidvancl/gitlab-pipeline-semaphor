@@ -6,7 +6,7 @@
 #include <WiFiClientSecure.h>
 #include "Display.h"
 #include "Semaphore.h"
-#include "TokenStore.h"
+#include <OtaUpdater.h>
 #include "config.h"
 
 namespace Pipeline {
@@ -14,6 +14,11 @@ namespace Pipeline {
 static unsigned long lastUpdate = 0;
 static String lastTitle;
 static String lastAuthor;
+
+static const String& gitlabToken() {
+  static String token = OtaUpdater::loadSecret("gitlab");
+  return token;
+}
 
 static void showIfChanged(const char* title, const char* author) {
   if (lastTitle == title && lastAuthor == author) return;
@@ -60,7 +65,7 @@ static void fetch() {
 
   if (!http.begin(client, API_URL)) return;
 
-  http.addHeader("PRIVATE-TOKEN", TokenStore::gitlab());
+  http.addHeader("PRIVATE-TOKEN", gitlabToken());
   int httpCode = http.GET();
 
   if (httpCode > 0) {
