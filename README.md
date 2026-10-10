@@ -4,6 +4,8 @@ Firmware for a GitLab pipeline status indicator, running on an ESP8266 (NodeMCU 
 
 ![Traffic light tower with the TFT display showing a successful pipeline](docs/semaphor.jpg)
 
+The 3D printed case is on [Printables](https://www.printables.com/model/1801439-gitlab-pipeline-traffic-light-esp8266-tft).
+
 ## Hardware
 
 - ESP8266 NodeMCU v2
